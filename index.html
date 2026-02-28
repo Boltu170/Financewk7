@@ -1,0 +1,2613 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Management & Markets — ARU Interactive Learning</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --aru-navy: #1a2744;
+  --aru-navy-light: #243358;
+  --aru-cream: #f5f2e8;
+  --aru-cream-dark: #ede9d8;
+  --aru-gold: #c9a84c;
+  --aru-gold-light: #e8c96a;
+  --aru-red: #c0392b;
+  --aru-green: #27ae60;
+  --aru-blue-accent: #2980b9;
+  --aru-text: #1a2744;
+  --shadow: 0 4px 20px rgba(26,39,68,0.15);
+  --shadow-lg: 0 8px 40px rgba(26,39,68,0.2);
+}
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+font-family: ‘Source Sans 3’, sans-serif;
+background: var(–aru-cream);
+color: var(–aru-text);
+min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+.app-header {
+background: var(–aru-navy);
+color: white;
+padding: 12px 24px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+position: sticky;
+top: 0;
+z-index: 100;
+box-shadow: var(–shadow-lg);
+}
+
+.header-left {
+display: flex;
+align-items: center;
+gap: 16px;
+}
+
+.aru-logo {
+font-family: ‘Playfair Display’, serif;
+font-size: 20px;
+color: var(–aru-gold);
+letter-spacing: 1px;
+}
+
+.header-title {
+font-size: 14px;
+opacity: 0.85;
+font-weight: 500;
+}
+
+.header-right {
+display: flex;
+align-items: center;
+gap: 20px;
+}
+
+.timer-display {
+background: rgba(255,255,255,0.1);
+border: 1px solid rgba(255,255,255,0.2);
+border-radius: 8px;
+padding: 6px 14px;
+font-size: 18px;
+font-weight: 700;
+font-family: monospace;
+letter-spacing: 2px;
+color: white;
+transition: color 0.3s;
+}
+
+.timer-display.warning { color: #f39c12; }
+.timer-display.danger { color: #e74c3c; animation: pulse 1s infinite; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+.student-badge {
+background: var(–aru-gold);
+color: var(–aru-navy);
+border-radius: 20px;
+padding: 4px 14px;
+font-size: 13px;
+font-weight: 700;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-container {
+background: var(–aru-navy-light);
+padding: 10px 24px;
+}
+
+.progress-track {
+background: rgba(255,255,255,0.15);
+border-radius: 10px;
+height: 8px;
+position: relative;
+overflow: hidden;
+}
+
+.progress-fill {
+height: 100%;
+background: linear-gradient(90deg, var(–aru-gold), var(–aru-gold-light));
+border-radius: 10px;
+transition: width 0.6s ease;
+}
+
+.progress-modules {
+display: flex;
+justify-content: space-between;
+margin-top: 6px;
+}
+
+.progress-module-label {
+font-size: 10px;
+color: rgba(255,255,255,0.6);
+font-weight: 500;
+}
+
+.progress-module-label.done { color: var(–aru-gold); }
+.progress-module-label.active { color: white; font-weight: 700; }
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+max-width: 900px;
+margin: 0 auto;
+padding: 24px 16px 60px;
+}
+
+/* ===== SCREENS ===== */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ===== LANDING ===== */
+.landing-card {
+background: white;
+border-radius: 16px;
+padding: 48px 40px;
+text-align: center;
+box-shadow: var(–shadow-lg);
+border-top: 6px solid var(–aru-navy);
+margin-top: 40px;
+}
+
+.landing-card h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: 32px;
+color: var(–aru-navy);
+margin-bottom: 8px;
+}
+
+.landing-card .subtitle {
+color: #666;
+font-size: 16px;
+margin-bottom: 32px;
+}
+
+.module-overview {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+gap: 12px;
+margin: 28px 0;
+}
+
+.module-pill {
+background: var(–aru-cream);
+border: 2px solid var(–aru-cream-dark);
+border-radius: 10px;
+padding: 12px 8px;
+font-size: 11px;
+font-weight: 600;
+color: var(–aru-navy);
+text-align: center;
+}
+
+.module-pill .mod-num {
+font-size: 18px;
+font-weight: 700;
+color: var(–aru-gold);
+display: block;
+margin-bottom: 4px;
+}
+
+.name-entry {
+display: flex;
+gap: 12px;
+max-width: 420px;
+margin: 0 auto 24px;
+}
+
+.name-input {
+flex: 1;
+padding: 14px 18px;
+border: 2px solid var(–aru-cream-dark);
+border-radius: 10px;
+font-size: 16px;
+font-family: ‘Source Sans 3’, sans-serif;
+outline: none;
+transition: border-color 0.2s;
+}
+
+.name-input:focus { border-color: var(–aru-navy); }
+
+.rules-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 12px;
+margin: 24px 0;
+text-align: left;
+}
+
+.rule-item {
+background: var(–aru-cream);
+border-radius: 8px;
+padding: 12px 14px;
+font-size: 13px;
+display: flex;
+align-items: flex-start;
+gap: 10px;
+}
+
+.rule-icon { font-size: 18px; flex-shrink: 0; }
+
+/* ===== BUTTONS ===== */
+.btn {
+display: inline-block;
+padding: 14px 32px;
+border-radius: 10px;
+font-family: ‘Source Sans 3’, sans-serif;
+font-size: 16px;
+font-weight: 700;
+cursor: pointer;
+border: none;
+transition: all 0.2s;
+text-decoration: none;
+}
+
+.btn-primary {
+background: var(–aru-navy);
+color: white;
+}
+
+.btn-primary:hover { background: var(–aru-navy-light); transform: translateY(-2px); box-shadow: var(–shadow); }
+.btn-primary:disabled { background: #999; cursor: not-allowed; transform: none; }
+
+.btn-gold {
+background: var(–aru-gold);
+color: var(–aru-navy);
+}
+
+.btn-gold:hover { background: var(–aru-gold-light); transform: translateY(-2px); }
+
+.btn-sm {
+padding: 8px 18px;
+font-size: 14px;
+}
+
+/* ===== MODULE HEADER ===== */
+.module-header {
+background: var(–aru-navy);
+color: white;
+border-radius: 14px 14px 0 0;
+padding: 24px 28px;
+}
+
+.module-number {
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 2px;
+color: var(–aru-gold);
+font-weight: 700;
+margin-bottom: 4px;
+}
+
+.module-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 24px;
+}
+
+.module-meta {
+display: flex;
+gap: 20px;
+margin-top: 10px;
+font-size: 13px;
+opacity: 0.75;
+}
+
+.module-body {
+background: white;
+border-radius: 0 0 14px 14px;
+padding: 28px;
+box-shadow: var(–shadow);
+margin-bottom: 24px;
+}
+
+/* ===== SCORE BAR ===== */
+.score-bar {
+background: var(–aru-cream);
+border-radius: 10px;
+padding: 12px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 24px;
+border: 1px solid var(–aru-cream-dark);
+}
+
+.score-val {
+font-size: 22px;
+font-weight: 700;
+color: var(–aru-navy);
+}
+
+.score-label { font-size: 12px; color: #888; }
+
+.attempts-dots {
+display: flex;
+gap: 6px;
+}
+
+.dot {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+background: var(–aru-cream-dark);
+transition: background 0.3s;
+}
+
+.dot.used { background: var(–aru-red); }
+.dot.correct { background: var(–aru-green); }
+
+/* ===== DRAG AND DROP ===== */
+.drag-instructions {
+background: #e8f4fd;
+border: 1px solid #b8d4f0;
+border-radius: 8px;
+padding: 12px 16px;
+font-size: 14px;
+margin-bottom: 20px;
+color: #1a5276;
+}
+
+.items-pool {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+min-height: 60px;
+background: var(–aru-cream);
+border: 2px dashed var(–aru-cream-dark);
+border-radius: 10px;
+padding: 14px;
+margin-bottom: 24px;
+}
+
+.drag-item {
+background: var(–aru-navy);
+color: white;
+padding: 8px 14px;
+border-radius: 8px;
+font-size: 13px;
+font-weight: 600;
+cursor: grab;
+user-select: none;
+transition: all 0.2s;
+border: 2px solid transparent;
+}
+
+.drag-item:hover { transform: translateY(-2px); box-shadow: var(–shadow); }
+.drag-item.dragging { opacity: 0.4; cursor: grabbing; }
+.drag-item.correct-item { background: var(–aru-green); cursor: default; }
+.drag-item.wrong-item { background: var(–aru-red); animation: shake 0.4s; }
+
+@keyframes shake {
+0%,100%{transform:translateX(0)}
+25%{transform:translateX(-8px)}
+75%{transform:translateX(8px)}
+}
+
+.drop-zones {
+display: grid;
+gap: 16px;
+}
+
+.drop-zones-2col { grid-template-columns: repeat(2, 1fr); }
+.drop-zones-4col { grid-template-columns: repeat(2, 1fr); }
+
+.drop-zone {
+border: 2px dashed var(–aru-navy);
+border-radius: 10px;
+padding: 14px;
+min-height: 100px;
+transition: all 0.2s;
+position: relative;
+}
+
+.drop-zone.drag-over {
+background: rgba(26,39,68,0.06);
+border-color: var(–aru-gold);
+border-style: solid;
+}
+
+.drop-zone-label {
+font-weight: 700;
+font-size: 13px;
+color: var(–aru-navy);
+margin-bottom: 10px;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.zone-icon { font-size: 18px; }
+
+.dropped-items {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+min-height: 40px;
+}
+
+/* ===== HINT / REVEAL ===== */
+.hint-box {
+background: #fff8e1;
+border: 1px solid #f0c040;
+border-radius: 8px;
+padding: 12px 16px;
+font-size: 14px;
+margin: 12px 0;
+display: none;
+}
+
+.hint-box.show { display: flex; gap: 10px; align-items: flex-start; }
+.hint-icon { font-size: 18px; flex-shrink: 0; }
+
+.reveal-box {
+background: #e8f8ef;
+border: 1px solid #82d0a0;
+border-radius: 8px;
+padding: 14px 16px;
+font-size: 14px;
+margin: 12px 0;
+display: none;
+}
+
+.reveal-box.show { display: block; }
+
+/* ===== TRUE/FALSE ===== */
+.tf-question {
+background: var(–aru-cream);
+border-radius: 10px;
+padding: 16px 20px;
+margin-bottom: 14px;
+border: 2px solid var(–aru-cream-dark);
+transition: all 0.2s;
+}
+
+.tf-question.answered-correct { border-color: var(–aru-green); background: #e8f8ef; }
+.tf-question.answered-wrong { border-color: var(–aru-red); background: #fde8e6; }
+
+.tf-text {
+font-size: 15px;
+font-weight: 600;
+margin-bottom: 12px;
+line-height: 1.5;
+}
+
+.tf-buttons {
+display: flex;
+gap: 10px;
+}
+
+.tf-btn {
+padding: 8px 24px;
+border-radius: 8px;
+font-size: 14px;
+font-weight: 700;
+cursor: pointer;
+border: 2px solid transparent;
+transition: all 0.2s;
+}
+
+.tf-true { background: #e8f8ef; color: var(–aru-green); border-color: var(–aru-green); }
+.tf-true:hover { background: var(–aru-green); color: white; }
+.tf-false { background: #fde8e6; color: var(–aru-red); border-color: var(–aru-red); }
+.tf-false:hover { background: var(–aru-red); color: white; }
+
+.tf-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.tf-btn.selected-correct { background: var(–aru-green); color: white; }
+.tf-btn.selected-wrong { background: var(–aru-red); color: white; }
+
+.tf-score-gate {
+background: var(–aru-navy);
+color: white;
+border-radius: 10px;
+padding: 16px 20px;
+text-align: center;
+margin: 16px 0;
+font-size: 15px;
+}
+
+/* ===== SPOT THE ERROR ===== */
+.pl-statement {
+background: #f9f9f9;
+border: 2px solid var(–aru-cream-dark);
+border-radius: 10px;
+padding: 20px;
+font-family: ‘Courier New’, monospace;
+font-size: 14px;
+line-height: 2;
+}
+
+.pl-row {
+display: flex;
+justify-content: space-between;
+padding: 4px 8px;
+border-radius: 6px;
+cursor: pointer;
+transition: background 0.15s;
+}
+
+.pl-row:hover { background: rgba(201,168,76,0.15); }
+.pl-row.clickable { border: 1px dashed transparent; }
+.pl-row.clickable:hover { border-color: var(–aru-gold); }
+.pl-row.selected-error { background: #fff3cd; border: 1px solid #f0c040; }
+.pl-row.confirmed-error { background: #fde8e6; border: 1px solid var(–aru-red); }
+.pl-row.confirmed-correct-fix { background: #e8f8ef; border: 1px solid var(–aru-green); }
+.pl-row.pl-separator { border-top: 1px solid #ccc; margin-top: 4px; font-weight: 700; }
+
+.error-options {
+display: none;
+gap: 8px;
+flex-wrap: wrap;
+margin: 8px 0 16px;
+padding: 12px;
+background: #fff8e1;
+border-radius: 8px;
+}
+
+.error-options.show { display: flex; }
+
+.error-option-btn {
+padding: 6px 14px;
+border-radius: 6px;
+border: 2px solid var(–aru-cream-dark);
+background: white;
+font-size: 13px;
+cursor: pointer;
+font-family: ‘Source Sans 3’, sans-serif;
+transition: all 0.15s;
+}
+
+.error-option-btn:hover { border-color: var(–aru-navy); background: var(–aru-cream); }
+
+/* ===== CALCULATION ===== */
+.calc-step {
+background: var(–aru-cream);
+border-radius: 12px;
+padding: 20px;
+margin-bottom: 16px;
+border: 2px solid var(–aru-cream-dark);
+transition: all 0.3s;
+}
+
+.calc-step.locked {
+opacity: 0.5;
+pointer-events: none;
+}
+
+.calc-step.unlocked { border-color: var(–aru-navy); }
+.calc-step.completed { border-color: var(–aru-green); background: #e8f8ef; }
+
+.calc-step-num {
+font-size: 11px;
+text-transform: uppercase;
+letter-spacing: 2px;
+color: var(–aru-gold);
+font-weight: 700;
+margin-bottom: 6px;
+}
+
+.calc-step-title {
+font-size: 16px;
+font-weight: 700;
+color: var(–aru-navy);
+margin-bottom: 12px;
+}
+
+.formula-display {
+background: var(–aru-navy);
+color: white;
+border-radius: 8px;
+padding: 10px 14px;
+font-family: ‘Courier New’, monospace;
+font-size: 13px;
+margin-bottom: 14px;
+}
+
+.calc-input-row {
+display: flex;
+gap: 10px;
+align-items: center;
+}
+
+.calc-input {
+flex: 1;
+padding: 12px 16px;
+border: 2px solid var(–aru-cream-dark);
+border-radius: 8px;
+font-size: 16px;
+font-family: ‘Source Sans 3’, sans-serif;
+outline: none;
+transition: border-color 0.2s;
+}
+
+.calc-input:focus { border-color: var(–aru-navy); }
+.calc-input.correct { border-color: var(–aru-green); background: #e8f8ef; }
+.calc-input.incorrect { border-color: var(–aru-red); }
+
+.calc-unit {
+font-weight: 700;
+font-size: 16px;
+color: #666;
+min-width: 20px;
+}
+
+/* ===== MATCHING ===== */
+.match-container {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 20px;
+}
+
+.match-col-label {
+font-weight: 700;
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 1px;
+color: #888;
+margin-bottom: 10px;
+text-align: center;
+}
+
+.match-terms, .match-defs {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.match-term {
+background: var(–aru-navy);
+color: white;
+padding: 10px 14px;
+border-radius: 8px;
+font-size: 13px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.2s;
+border: 2px solid transparent;
+text-align: center;
+}
+
+.match-term:hover { transform: translateY(-1px); box-shadow: var(–shadow); }
+.match-term.selected { border-color: var(–aru-gold); background: var(–aru-navy-light); }
+.match-term.matched-correct { background: var(–aru-green); cursor: default; }
+.match-term.matched-wrong { background: var(–aru-red); animation: shake 0.4s; }
+
+.match-def {
+background: var(–aru-cream);
+border: 2px solid var(–aru-cream-dark);
+padding: 10px 14px;
+border-radius: 8px;
+font-size: 13px;
+cursor: pointer;
+transition: all 0.2s;
+line-height: 1.4;
+}
+
+.match-def:hover { border-color: var(–aru-navy); }
+.match-def.selected { border-color: var(–aru-gold); background: #fff8e1; }
+.match-def.matched-correct { border-color: var(–aru-green); background: #e8f8ef; cursor: default; }
+.match-def.matched-wrong { border-color: var(–aru-red); animation: shake 0.4s; }
+
+/* ===== FEEDBACK ===== */
+.feedback-msg {
+border-radius: 8px;
+padding: 12px 16px;
+font-size: 14px;
+font-weight: 600;
+margin: 12px 0;
+display: none;
+gap: 10px;
+align-items: center;
+}
+
+.feedback-msg.show { display: flex; }
+.feedback-correct { background: #e8f8ef; color: #1a6b3a; border: 1px solid var(–aru-green); }
+.feedback-wrong { background: #fde8e6; color: #8b1a14; border: 1px solid var(–aru-red); }
+
+/* ===== LEADERBOARD ===== */
+.leaderboard {
+background: white;
+border-radius: 12px;
+padding: 20px;
+box-shadow: var(–shadow);
+margin-top: 24px;
+}
+
+.leaderboard-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 18px;
+color: var(–aru-navy);
+margin-bottom: 16px;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.lb-row {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 10px 12px;
+border-radius: 8px;
+margin-bottom: 6px;
+background: var(–aru-cream);
+transition: all 0.3s;
+}
+
+.lb-row.current-user { background: rgba(201,168,76,0.2); border: 1px solid var(–aru-gold); }
+.lb-row:first-child { background: rgba(255,215,0,0.2); }
+.lb-row:nth-child(2) { background: rgba(192,192,192,0.2); }
+.lb-row:nth-child(3) { background: rgba(205,127,50,0.15); }
+
+.lb-rank { font-weight: 700; font-size: 16px; min-width: 28px; }
+.lb-name { flex: 1; font-weight: 600; font-size: 14px; }
+.lb-module { font-size: 12px; color: #888; }
+.lb-score { font-weight: 700; font-size: 16px; color: var(–aru-navy); }
+
+/* ===== MODULE COMPLETE ===== */
+.module-complete {
+text-align: center;
+padding: 32px 20px;
+}
+
+.complete-icon { font-size: 64px; margin-bottom: 16px; }
+
+.complete-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 26px;
+color: var(–aru-navy);
+margin-bottom: 8px;
+}
+
+.complete-score {
+font-size: 48px;
+font-weight: 700;
+color: var(–aru-gold);
+margin: 12px 0;
+}
+
+.points-breakdown {
+display: grid;
+grid-template-columns: repeat(3,1fr);
+gap: 12px;
+margin: 20px 0;
+}
+
+.points-item {
+background: var(–aru-cream);
+border-radius: 10px;
+padding: 14px 10px;
+text-align: center;
+}
+
+.points-num { font-size: 24px; font-weight: 700; color: var(–aru-navy); }
+.points-label { font-size: 12px; color: #888; margin-top: 2px; }
+
+/* ===== FINAL SCREEN ===== */
+.final-screen {
+text-align: center;
+padding: 40px 20px;
+}
+
+.certificate {
+background: white;
+border: 8px double var(–aru-gold);
+border-radius: 16px;
+padding: 40px;
+margin: 24px 0;
+box-shadow: var(–shadow-lg);
+position: relative;
+}
+
+.certificate::before {
+content: ‘’;
+position: absolute;
+top: 8px; left: 8px; right: 8px; bottom: 8px;
+border: 2px solid var(–aru-cream-dark);
+border-radius: 10px;
+pointer-events: none;
+}
+
+.cert-logo { font-family: ‘Playfair Display’, serif; font-size: 24px; color: var(–aru-gold); margin-bottom: 8px; }
+.cert-title { font-size: 14px; text-transform: uppercase; letter-spacing: 3px; color: #888; margin-bottom: 20px; }
+.cert-name { font-family: ‘Playfair Display’, serif; font-size: 36px; color: var(–aru-navy); }
+.cert-text { font-size: 16px; color: #555; margin: 12px 0 24px; line-height: 1.6; }
+.cert-score-big { font-size: 52px; font-weight: 700; color: var(–aru-gold); }
+.cert-score-label { font-size: 14px; color: #888; }
+
+.final-breakdown {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+gap: 12px;
+margin: 24px 0;
+}
+
+.final-module-score {
+background: white;
+border-radius: 10px;
+padding: 16px 10px;
+text-align: center;
+box-shadow: var(–shadow);
+border-top: 4px solid var(–aru-navy);
+}
+
+.fms-num { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+.fms-score { font-size: 28px; font-weight: 700; color: var(–aru-navy); }
+.fms-max { font-size: 12px; color: #aaa; }
+
+/* ===== LECTURER DASHBOARD ===== */
+.lecturer-dashboard {
+padding: 24px;
+max-width: 1100px;
+margin: 0 auto;
+}
+
+.dash-header {
+background: var(–aru-navy);
+color: white;
+border-radius: 12px;
+padding: 20px 24px;
+margin-bottom: 24px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.dash-stats {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.dash-stat {
+background: white;
+border-radius: 10px;
+padding: 16px 20px;
+box-shadow: var(–shadow);
+text-align: center;
+}
+
+.dash-stat-num { font-size: 36px; font-weight: 700; color: var(–aru-navy); }
+.dash-stat-label { font-size: 13px; color: #888; }
+
+.dash-table {
+background: white;
+border-radius: 12px;
+box-shadow: var(–shadow);
+overflow: hidden;
+}
+
+.dash-table table { width: 100%; border-collapse: collapse; }
+.dash-table th {
+background: var(–aru-navy);
+color: white;
+padding: 12px 16px;
+text-align: left;
+font-size: 13px;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+
+.dash-table td {
+padding: 12px 16px;
+border-bottom: 1px solid var(–aru-cream);
+font-size: 14px;
+}
+
+.dash-table tr:hover td { background: var(–aru-cream); }
+.dash-table tr.stalled td { background: #fff3cd; }
+
+.module-badge {
+display: inline-block;
+background: var(–aru-navy);
+color: white;
+border-radius: 12px;
+padding: 2px 10px;
+font-size: 12px;
+font-weight: 600;
+}
+
+.stall-flag {
+background: var(–aru-red);
+color: white;
+border-radius: 12px;
+padding: 2px 10px;
+font-size: 11px;
+font-weight: 600;
+}
+
+.nudge-btn {
+background: var(–aru-gold);
+color: var(–aru-navy);
+border: none;
+border-radius: 8px;
+padding: 8px 16px;
+font-size: 13px;
+font-weight: 700;
+cursor: pointer;
+transition: all 0.2s;
+}
+
+.nudge-btn:hover { background: var(–aru-gold-light); }
+
+/* ===== NUDGE BANNER ===== */
+.nudge-banner {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+background: var(–aru-gold);
+color: var(–aru-navy);
+text-align: center;
+padding: 14px;
+font-size: 16px;
+font-weight: 700;
+z-index: 9999;
+transform: translateY(-100%);
+transition: transform 0.4s;
+}
+
+.nudge-banner.show { transform: translateY(0); }
+
+/* ===== SCENARIO QUESTION ===== */
+.scenario-box {
+background: var(–aru-navy);
+color: white;
+border-radius: 10px;
+padding: 18px 20px;
+margin-bottom: 16px;
+font-size: 15px;
+line-height: 1.6;
+}
+
+.scenario-options {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.scenario-option {
+background: var(–aru-cream);
+border: 2px solid var(–aru-cream-dark);
+border-radius: 10px;
+padding: 14px 18px;
+cursor: pointer;
+transition: all 0.2s;
+font-size: 14px;
+font-weight: 500;
+text-align: left;
+}
+
+.scenario-option:hover { border-color: var(–aru-navy); background: white; }
+.scenario-option.correct-ans { border-color: var(–aru-green); background: #e8f8ef; cursor: default; }
+.scenario-option.wrong-ans { border-color: var(–aru-red); background: #fde8e6; cursor: default; }
+.scenario-option:disabled { pointer-events: none; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 680px) {
+.module-overview { grid-template-columns: repeat(3,1fr); }
+.match-container { grid-template-columns: 1fr; }
+.drop-zones-2col, .drop-zones-4col { grid-template-columns: 1fr; }
+.final-breakdown { grid-template-columns: repeat(3,1fr); }
+.rules-grid { grid-template-columns: 1fr; }
+.points-breakdown { grid-template-columns: repeat(2,1fr); }
+}
+
+/* ===== UTILITIES ===== */
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mb-16 { margin-bottom: 16px; }
+.divider { height: 1px; background: var(–aru-cream-dark); margin: 20px 0; }
+</style>
+
+</head>
+<body>
+
+<!-- NUDGE BANNER -->
+
+<div class="nudge-banner" id="nudgeBanner">
+  📣 Keep going — you're doing great! Stay focused and complete the module!
+</div>
+
+<!-- APP HEADER -->
+
+<header class="app-header" id="appHeader" style="display:none">
+  <div class="header-left">
+    <div class="aru-logo">a.r.u.</div>
+    <div class="header-title">Financial Management & Markets</div>
+  </div>
+  <div class="header-right">
+    <div class="timer-display" id="timerDisplay">60:00</div>
+    <div class="student-badge" id="studentBadge">Student</div>
+  </div>
+</header>
+
+<!-- PROGRESS BAR -->
+
+<div class="progress-container" id="progressContainer" style="display:none">
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <div class="progress-modules">
+    <span class="progress-module-label" id="plabel0">Module 1</span>
+    <span class="progress-module-label" id="plabel1">Module 2</span>
+    <span class="progress-module-label" id="plabel2">Module 3</span>
+    <span class="progress-module-label" id="plabel3">Module 4</span>
+    <span class="progress-module-label" id="plabel4">Module 5</span>
+  </div>
+</div>
+
+<div class="main-content" id="mainContent">
+
+<!-- ==================== SCREEN: LANDING ==================== -->
+
+<div class="screen active" id="screen-landing">
+  <div class="landing-card">
+    <div style="font-size:48px;margin-bottom:12px">📊</div>
+    <h1>Financial Management & Markets</h1>
+    <p class="subtitle">MOD010837 — Lecture 7 Interactive Activities</p>
+
+```
+<div class="module-overview">
+  <div class="module-pill"><span class="mod-num">1</span>The Financial System</div>
+  <div class="module-pill"><span class="mod-num">2</span>Sources of Finance</div>
+  <div class="module-pill"><span class="mod-num">3</span>Debt vs Equity</div>
+  <div class="module-pill"><span class="mod-num">4</span>IPO & Capital Markets</div>
+  <div class="module-pill"><span class="mod-num">5</span>IPO Calculations</div>
+</div>
+
+<div class="rules-grid">
+  <div class="rule-item"><div class="rule-icon">⏱️</div><div><strong>60-minute timer</strong> starts when you enter your name. Complete all 5 modules.</div></div>
+  <div class="rule-item"><div class="rule-icon">🎯</div><div><strong>3 attempts max</strong> per activity, then a hint appears. Keep going — don't stall.</div></div>
+  <div class="rule-item"><div class="rule-icon">🏆</div><div><strong>Leaderboard</strong> is live. First-attempt correct answers score highest.</div></div>
+  <div class="rule-item"><div class="rule-icon">🔒</div><div><strong>Sequential modules</strong> — you must complete each one to unlock the next.</div></div>
+</div>
+
+<div class="name-entry">
+  <input type="text" class="name-input" id="nameInput" placeholder="Enter your full name..." maxlength="40">
+  <button class="btn btn-primary" onclick="startSession()">Start ▶</button>
+</div>
+<div id="nameError" style="color:var(--aru-red);font-size:13px;margin-top:4px;display:none">Please enter your name to begin.</div>
+
+<div id="landingLeaderboard" class="leaderboard" style="margin-top:24px;display:none">
+  <div class="leaderboard-title">🏆 Current Leaderboard</div>
+  <div id="landingLBContent"></div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ==================== SCREEN: MODULE 1 ==================== -->
+
+<div class="screen" id="screen-m1">
+  <div class="module-header">
+    <div class="module-number">Module 1 of 5</div>
+    <div class="module-title">The Financial System</div>
+    <div class="module-meta">
+      <span>⏱ ~10 minutes</span>
+      <span>🎯 100 points available</span>
+      <span>📌 Drag & Drop Activity</span>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="score-bar">
+      <div><div class="score-label">MODULE SCORE</div><div class="score-val" id="m1Score">0 / 100</div></div>
+      <div><div class="score-label">ATTEMPTS</div><div class="attempts-dots" id="m1Dots"></div></div>
+      <div><div class="score-label">STATUS</div><div id="m1Status" style="font-weight:600;color:#888">In Progress</div></div>
+    </div>
+
+```
+<div class="drag-instructions">
+  💡 <strong>Instructions:</strong> Drag each item from the pool below into the correct category in the financial system. Wrong items will bounce back — you have <strong>3 attempts per item</strong> before the answer is revealed.
+</div>
+
+<div class="items-pool" id="m1Pool"></div>
+
+<div class="drop-zones drop-zones-4col" id="m1Zones">
+  <div class="drop-zone" data-zone="institutions" ondragover="allowDrop(event)" ondrop="dropItem(event,'m1','institutions')">
+    <div class="drop-zone-label"><span class="zone-icon">🏦</span> Financial Institutions</div>
+    <div class="dropped-items" id="zone-m1-institutions"></div>
+  </div>
+  <div class="drop-zone" data-zone="markets" ondragover="allowDrop(event)" ondrop="dropItem(event,'m1','markets')">
+    <div class="drop-zone-label"><span class="zone-icon">📈</span> Financial Markets</div>
+    <div class="dropped-items" id="zone-m1-markets"></div>
+  </div>
+  <div class="drop-zone" data-zone="instruments" ondragover="allowDrop(event)" ondrop="dropItem(event,'m1','instruments')">
+    <div class="drop-zone-label"><span class="zone-icon">📄</span> Financial Instruments</div>
+    <div class="dropped-items" id="zone-m1-instruments"></div>
+  </div>
+  <div class="drop-zone" data-zone="services" ondragover="allowDrop(event)" ondrop="dropItem(event,'m1','services')">
+    <div class="drop-zone-label"><span class="zone-icon">🛎️</span> Financial Services</div>
+    <div class="dropped-items" id="zone-m1-services"></div>
+  </div>
+</div>
+
+<div class="hint-box" id="m1Hint"><div class="hint-icon">💡</div><div id="m1HintText"></div></div>
+<div class="reveal-box" id="m1Reveal"><strong>✅ Answer revealed:</strong> <span id="m1RevealText"></span></div>
+
+<div class="divider"></div>
+<div class="feedback-msg" id="m1Feedback"></div>
+<div style="text-align:center;margin-top:16px">
+  <button class="btn btn-primary hidden" id="m1NextBtn" onclick="completeModule(1)">Continue to Module 2 →</button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ==================== SCREEN: MODULE 2 ==================== -->
+
+<div class="screen" id="screen-m2">
+  <div class="module-header">
+    <div class="module-number">Module 2 of 5</div>
+    <div class="module-title">Sources of Finance</div>
+    <div class="module-meta">
+      <span>⏱ ~12 minutes</span>
+      <span>🎯 100 points available</span>
+      <span>📌 Two-Stage Card Sort</span>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="score-bar">
+      <div><div class="score-label">MODULE SCORE</div><div class="score-val" id="m2Score">0 / 100</div></div>
+      <div><div class="score-label">STAGE</div><div id="m2Stage" style="font-weight:600;color:var(--aru-navy)">Stage 1 of 2</div></div>
+      <div><div class="score-label">STATUS</div><div id="m2Status" style="font-weight:600;color:#888">In Progress</div></div>
+    </div>
+
+```
+<!-- STAGE 1: Internal vs External -->
+<div id="m2Stage1">
+  <div class="drag-instructions">
+    💡 <strong>Stage 1:</strong> Sort each finance source into <strong>Internal</strong> or <strong>External</strong>. Get all correct to unlock Stage 2.
+  </div>
+  <div class="items-pool" id="m2Pool1"></div>
+  <div class="drop-zones drop-zones-2col">
+    <div class="drop-zone" ondragover="allowDrop(event)" ondrop="dropItem(event,'m2s1','internal')">
+      <div class="drop-zone-label"><span class="zone-icon">🏢</span> Internal Finance</div>
+      <div class="dropped-items" id="zone-m2s1-internal"></div>
+    </div>
+    <div class="drop-zone" ondragover="allowDrop(event)" ondrop="dropItem(event,'m2s1','external')">
+      <div class="drop-zone-label"><span class="zone-icon">🌐</span> External Finance</div>
+      <div class="dropped-items" id="zone-m2s1-external"></div>
+    </div>
+  </div>
+  <div class="hint-box" id="m2s1Hint"><div class="hint-icon">💡</div><div id="m2s1HintText"></div></div>
+  <div class="reveal-box" id="m2s1Reveal"></div>
+  <div class="feedback-msg" id="m2s1Feedback"></div>
+</div>
+
+<!-- STAGE 2: Duration -->
+<div id="m2Stage2" class="hidden">
+  <div class="divider"></div>
+  <div class="drag-instructions">
+    💡 <strong>Stage 2:</strong> Well done! Now sort the <strong>external</strong> sources by duration: Short-term, Medium-term, or Long-term/Permanent.
+  </div>
+  <div class="items-pool" id="m2Pool2"></div>
+  <div class="drop-zones" style="grid-template-columns: repeat(3,1fr)">
+    <div class="drop-zone" ondragover="allowDrop(event)" ondrop="dropItem(event,'m2s2','short')">
+      <div class="drop-zone-label"><span class="zone-icon">⚡</span> Short-Term</div>
+      <div class="dropped-items" id="zone-m2s2-short"></div>
+    </div>
+    <div class="drop-zone" ondragover="allowDrop(event)" ondrop="dropItem(event,'m2s2','medium')">
+      <div class="drop-zone-label"><span class="zone-icon">📅</span> Medium-Term</div>
+      <div class="dropped-items" id="zone-m2s2-medium"></div>
+    </div>
+    <div class="drop-zone" ondragover="allowDrop(event)" ondrop="dropItem(event,'m2s2','long')">
+      <div class="drop-zone-label"><span class="zone-icon">🔒</span> Long-Term / Permanent</div>
+      <div class="dropped-items" id="zone-m2s2-long"></div>
+    </div>
+  </div>
+  <div class="hint-box" id="m2s2Hint"><div class="hint-icon">💡</div><div id="m2s2HintText"></div></div>
+  <div class="reveal-box" id="m2s2Reveal"></div>
+  <div class="feedback-msg" id="m2s2Feedback"></div>
+</div>
+
+<div class="divider"></div>
+<div style="text-align:center;margin-top:16px">
+  <button class="btn btn-primary hidden" id="m2NextBtn" onclick="completeModule(2)">Continue to Module 3 →</button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ==================== SCREEN: MODULE 3 ==================== -->
+
+<div class="screen" id="screen-m3">
+  <div class="module-header">
+    <div class="module-number">Module 3 of 5</div>
+    <div class="module-title">Debt vs Equity</div>
+    <div class="module-meta">
+      <span>⏱ ~12 minutes</span>
+      <span>🎯 100 points available</span>
+      <span>📌 Spot the Error + True/False</span>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="score-bar">
+      <div><div class="score-label">MODULE SCORE</div><div class="score-val" id="m3Score">0 / 100</div></div>
+      <div><div class="score-label">PART</div><div id="m3Part" style="font-weight:600;color:var(--aru-navy)">Part A</div></div>
+      <div><div class="score-label">STATUS</div><div id="m3Status" style="font-weight:600;color:#888">In Progress</div></div>
+    </div>
+
+```
+<!-- PART A: Spot the Error -->
+<div id="m3PartA">
+  <h3 style="font-family:'Playfair Display',serif;margin-bottom:8px;color:var(--aru-navy)">Part A: Spot the Error</h3>
+  <div class="drag-instructions">
+    💡 <strong>Instructions:</strong> The Profit & Loss statement below contains <strong>3 deliberate errors</strong>. Click on the row you think is wrong and select the correct fix. Find all 3 to proceed.
+  </div>
+  <div style="font-size:13px;color:#888;margin-bottom:12px">Errors found: <strong id="errorsFound">0</strong> / 3</div>
+
+  <div class="pl-statement" id="plStatement">
+    <div class="pl-row"><span>Revenue</span><span>£500,000</span></div>
+    <div class="pl-row"><span>Less: Cost of Sales</span><span>(£200,000)</span></div>
+    <div class="pl-row pl-separator"><span><strong>Gross Profit</strong></span><span><strong>£300,000</strong></span></div>
+    <div class="pl-row clickable" data-id="opex" onclick="selectPLRow(this)"><span>Less: Operating Expenses</span><span>(£80,000)</span></div>
+    <div class="pl-row pl-separator" style="cursor:default"><span><strong>Operating Profit</strong></span><span><strong>£220,000</strong></span></div>
+    <div class="pl-row clickable" data-id="interest" onclick="selectPLRow(this)"><span>Less: Interest Expense (Operating Cost)</span><span>(£15,000)</span></div>
+    <div class="pl-row clickable" data-id="dividend" onclick="selectPLRow(this)"><span>Less: Dividend Paid (Finance Cost)</span><span>(£10,000)</span></div>
+    <div class="pl-row clickable" data-id="equity" onclick="selectPLRow(this)"><span>Less: Share Capital Issued (Expense)</span><span>(£50,000)</span></div>
+    <div class="pl-row pl-separator" style="cursor:default"><span><strong>Net Profit Before Tax</strong></span><span><strong>£145,000</strong></span></div>
+  </div>
+
+  <div class="error-options" id="errorOptions">
+    <div style="width:100%;font-size:13px;font-weight:700;color:var(--aru-navy);margin-bottom:8px">What is wrong with this row? Select the correct fix:</div>
+  </div>
+
+  <div class="feedback-msg" id="m3aFeedback"></div>
+</div>
+
+<!-- PART B: True/False -->
+<div id="m3PartB" class="hidden">
+  <div class="divider"></div>
+  <h3 style="font-family:'Playfair Display',serif;margin-bottom:8px;color:var(--aru-navy)">Part B: True or False?</h3>
+  <div class="drag-instructions">
+    💡 Answer all 8 statements. You must score at least <strong>6 out of 8</strong> to proceed. If you score below 6, the questions shuffle and you try again.
+  </div>
+  <div class="tf-score-gate" id="tfGate">Score needed: <strong>6/8</strong> — Current: <strong id="tfCurrent">0/8</strong></div>
+  <div id="tfQuestions"></div>
+  <div class="feedback-msg" id="m3bFeedback"></div>
+  <div style="text-align:center;margin-top:16px">
+    <button class="btn btn-primary hidden" id="m3RetryBtn" onclick="loadTFQuestions()">Retry (questions will shuffle) 🔄</button>
+  </div>
+</div>
+
+<div class="divider"></div>
+<div style="text-align:center;margin-top:16px">
+  <button class="btn btn-primary hidden" id="m3NextBtn" onclick="completeModule(3)">Continue to Module 4 →</button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ==================== SCREEN: MODULE 4 ==================== -->
+
+<div class="screen" id="screen-m4">
+  <div class="module-header">
+    <div class="module-number">Module 4 of 5</div>
+    <div class="module-title">IPO & Capital Markets</div>
+    <div class="module-meta">
+      <span>⏱ ~12 minutes</span>
+      <span>🎯 100 points available</span>
+      <span>📌 Matching + Scenario</span>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="score-bar">
+      <div><div class="score-label">MODULE SCORE</div><div class="score-val" id="m4Score">0 / 100</div></div>
+      <div><div class="score-label">PART</div><div id="m4Part" style="font-weight:600;color:var(--aru-navy)">Part A</div></div>
+      <div><div class="score-label">STATUS</div><div id="m4Status" style="font-weight:600;color:#888">In Progress</div></div>
+    </div>
+
+```
+<!-- PART A: Primary vs Secondary -->
+<div id="m4PartA">
+  <h3 style="font-family:'Playfair Display',serif;margin-bottom:8px;color:var(--aru-navy)">Part A: Primary vs Secondary Markets</h3>
+  <div class="drag-instructions">
+    💡 Drag each scenario into the correct market type. 3 attempts per item before the answer is revealed.
+  </div>
+  <div class="items-pool" id="m4Pool"></div>
+  <div class="drop-zones drop-zones-2col">
+    <div class="drop-zone" ondragover="allowDrop(event)" ondrop="dropItem(event,'m4','primary')">
+      <div class="drop-zone-label"><span class="zone-icon">🆕</span> Primary Market</div>
+      <div class="dropped-items" id="zone-m4-primary"></div>
+    </div>
+    <div class="drop-zone" ondragover="allowDrop(event)" ondrop="dropItem(event,'m4','secondary')">
+      <div class="drop-zone-label"><span class="zone-icon">🔄</span> Secondary Market</div>
+      <div class="dropped-items" id="zone-m4-secondary"></div>
+    </div>
+  </div>
+  <div class="hint-box" id="m4Hint"><div class="hint-icon">💡</div><div id="m4HintText"></div></div>
+  <div class="feedback-msg" id="m4aFeedback"></div>
+</div>
+
+<!-- PART B: Key Terms Matching -->
+<div id="m4PartB" class="hidden">
+  <div class="divider"></div>
+  <h3 style="font-family:'Playfair Display',serif;margin-bottom:8px;color:var(--aru-navy)">Part B: Key Terms Matching</h3>
+  <div class="drag-instructions">
+    💡 Click a <strong>term</strong> on the left, then click the matching <strong>definition</strong> on the right. 3 attempts per pair before the answer is revealed.
+  </div>
+  <div class="match-container">
+    <div>
+      <div class="match-col-label">TERMS</div>
+      <div class="match-terms" id="matchTerms"></div>
+    </div>
+    <div>
+      <div class="match-col-label">DEFINITIONS</div>
+      <div class="match-defs" id="matchDefs"></div>
+    </div>
+  </div>
+  <div class="hint-box" id="m4bHint"><div class="hint-icon">💡</div><div id="m4bHintText"></div></div>
+  <div class="feedback-msg" id="m4bFeedback"></div>
+</div>
+
+<!-- PART C: Scenario -->
+<div id="m4PartC" class="hidden">
+  <div class="divider"></div>
+  <h3 style="font-family:'Playfair Display',serif;margin-bottom:8px;color:var(--aru-navy)">Part C: Scenario Question</h3>
+  <div class="scenario-box">
+    🏢 <strong>GreenTech Ltd</strong> is a private company that wants to raise £50 million for expansion. They decide to offer shares to the public for the <strong>first time</strong> and engage an investment bank to set the offer price. They will list on the London Stock Exchange. <br><br>
+    <strong>Question:</strong> In which type of market does this transaction take place, and why?
+  </div>
+  <div class="scenario-options" id="m4cOptions">
+    <button class="scenario-option" onclick="checkScenario(this,'wrong')">Secondary market, because the shares will be traded on the stock exchange after listing.</button>
+    <button class="scenario-option" onclick="checkScenario(this,'correct')">Primary market, because new shares are being issued directly by the company to investors for the first time.</button>
+    <button class="scenario-option" onclick="checkScenario(this,'wrong')">Money market, because the company is raising short-term capital through a financial institution.</button>
+    <button class="scenario-option" onclick="checkScenario(this,'wrong')">Primary market, because an investment bank is involved in the transaction.</button>
+  </div>
+  <div class="feedback-msg" id="m4cFeedback"></div>
+</div>
+
+<div class="divider"></div>
+<div style="text-align:center;margin-top:16px">
+  <button class="btn btn-primary hidden" id="m4NextBtn" onclick="completeModule(4)">Continue to Module 5 →</button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ==================== SCREEN: MODULE 5 ==================== -->
+
+<div class="screen" id="screen-m5">
+  <div class="module-header">
+    <div class="module-number">Module 5 of 5</div>
+    <div class="module-title">IPO Calculation Challenge</div>
+    <div class="module-meta">
+      <span>⏱ ~12 minutes</span>
+      <span>🎯 100 points available</span>
+      <span>📌 Green Energy Corp Case Study</span>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="score-bar">
+      <div><div class="score-label">MODULE SCORE</div><div class="score-val" id="m5Score">0 / 100</div></div>
+      <div><div class="score-label">STEPS COMPLETE</div><div id="m5Steps" style="font-weight:600;color:var(--aru-navy)">0 / 4</div></div>
+      <div><div class="score-label">STATUS</div><div id="m5Status" style="font-weight:600;color:#888">In Progress</div></div>
+    </div>
+
+```
+<div style="background:var(--aru-navy);color:white;border-radius:10px;padding:18px 20px;margin-bottom:20px;font-size:14px;line-height:1.7">
+  <strong>📋 Case Study: Green Energy Corp IPO</strong><br>
+  Green Energy Corp is planning to go public. Use the data below to work through the IPO calculations step by step.<br><br>
+  <strong>Given:</strong> Number of shares issued: <strong>5 million</strong> &nbsp;|&nbsp; IPO offer price per share: <strong>$20</strong> &nbsp;|&nbsp; Underwriting fee: <strong>5%</strong> of gross proceeds &nbsp;|&nbsp; Other IPO-related expenses: <strong>$1.5 million</strong>
+</div>
+
+<!-- STEP 1 -->
+<div class="calc-step unlocked" id="step1">
+  <div class="calc-step-num">Step 1 of 4</div>
+  <div class="calc-step-title">Calculate the Gross Proceeds</div>
+  <div class="formula-display">Gross Proceeds = Number of Shares Issued × IPO Offer Price per Share</div>
+  <div style="font-size:13px;color:#666;margin-bottom:10px">Type your answer in dollars (e.g. 100000000 for $100m). Do not use commas.</div>
+  <div class="calc-input-row">
+    <span class="calc-unit">$</span>
+    <input type="number" class="calc-input" id="step1Input" placeholder="Enter gross proceeds...">
+    <button class="btn btn-primary btn-sm" onclick="checkCalc(1)">Check</button>
+  </div>
+  <div class="hint-box" id="step1Hint"><div class="hint-icon">💡</div><div>Hint: Multiply 5,000,000 × $20. Think about what the gross means — it's the total <em>before</em> any deductions.</div></div>
+  <div class="feedback-msg" id="step1Feedback"></div>
+</div>
+
+<!-- STEP 2 -->
+<div class="calc-step locked" id="step2">
+  <div class="calc-step-num">Step 2 of 4</div>
+  <div class="calc-step-title">Calculate the Underwriting Fee</div>
+  <div class="formula-display">Underwriting Fee = Gross Proceeds × Underwriting Fee Percentage</div>
+  <div style="font-size:13px;color:#666;margin-bottom:10px">Type your answer in dollars.</div>
+  <div class="calc-input-row">
+    <span class="calc-unit">$</span>
+    <input type="number" class="calc-input" id="step2Input" placeholder="Enter underwriting fee...">
+    <button class="btn btn-primary btn-sm" onclick="checkCalc(2)">Check</button>
+  </div>
+  <div class="hint-box" id="step2Hint"><div class="hint-icon">💡</div><div>Hint: Take your gross proceeds from Step 1 and multiply by 0.05 (which is 5%).</div></div>
+  <div class="feedback-msg" id="step2Feedback"></div>
+</div>
+
+<!-- STEP 3 -->
+<div class="calc-step locked" id="step3">
+  <div class="calc-step-num">Step 3 of 4</div>
+  <div class="calc-step-title">Calculate the Net Proceeds to the Firm</div>
+  <div class="formula-display">Net Proceeds = Gross Proceeds − Underwriting Fee − Other Expenses</div>
+  <div style="font-size:13px;color:#666;margin-bottom:10px">Type your answer in dollars. Other expenses = $1,500,000</div>
+  <div class="calc-input-row">
+    <span class="calc-unit">$</span>
+    <input type="number" class="calc-input" id="step3Input" placeholder="Enter net proceeds...">
+    <button class="btn btn-primary btn-sm" onclick="checkCalc(3)">Check</button>
+  </div>
+  <div class="hint-box" id="step3Hint"><div class="hint-icon">💡</div><div>Hint: Net = Gross − Underwriting Fee − $1,500,000. Use your answers from Steps 1 and 2.</div></div>
+  <div class="feedback-msg" id="step3Feedback"></div>
+</div>
+
+<!-- STEP 4: Bonus Interpretation -->
+<div class="calc-step locked" id="step4">
+  <div class="calc-step-num">Step 4 of 4 — Bonus Interpretation</div>
+  <div class="calc-step-title">What does the Net Proceeds figure tell us?</div>
+  <div class="scenario-options" id="step4Options">
+    <button class="scenario-option" onclick="checkStep4(this,'wrong')">It represents the total revenue Green Energy Corp will earn from selling its products after listing.</button>
+    <button class="scenario-option" onclick="checkStep4(this,'correct')">It is the actual cash Green Energy Corp receives to fund its expansion after paying IPO-related costs.</button>
+    <button class="scenario-option" onclick="checkStep4(this,'wrong')">It is the amount investors will receive as dividends in the first year after the IPO.</button>
+    <button class="scenario-option" onclick="checkStep4(this,'wrong')">It is the market capitalisation of Green Energy Corp immediately after listing.</button>
+  </div>
+  <div class="feedback-msg" id="step4Feedback"></div>
+</div>
+
+<div class="divider"></div>
+<div style="text-align:center;margin-top:16px">
+  <button class="btn btn-gold hidden" id="m5NextBtn" onclick="completeModule(5)">🏁 Complete & View Results</button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ==================== SCREEN: FINAL ==================== -->
+
+<div class="screen" id="screen-final">
+  <div class="final-screen">
+    <div style="font-size:64px">🎓</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:32px;color:var(--aru-navy);margin:12px 0">Session Complete!</h1>
+
+```
+<div class="certificate" id="certificate">
+  <div class="cert-logo">a.r.u.</div>
+  <div class="cert-title">Certificate of Completion</div>
+  <div class="cert-name" id="certName">Student Name</div>
+  <div class="cert-text">has successfully completed the interactive learning activities for<br><strong>Financial Management and Financial Markets — Lecture 7</strong></div>
+  <div class="cert-score-big" id="certScore">0</div>
+  <div class="cert-score-label">TOTAL POINTS OUT OF 500</div>
+</div>
+
+<div class="final-breakdown" id="finalBreakdown"></div>
+
+<div class="leaderboard" id="finalLeaderboard">
+  <div class="leaderboard-title">🏆 Final Leaderboard</div>
+  <div id="finalLBContent"></div>
+</div>
+
+<div style="background:var(--aru-navy);color:white;border-radius:12px;padding:20px;margin-top:24px;text-align:left">
+  <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:12px">📚 Key Concepts Covered Today</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:13px;line-height:1.6">
+    <div>✅ The four components of the financial system</div>
+    <div>✅ Internal vs external sources of finance</div>
+    <div>✅ Short, medium and long-term finance</div>
+    <div>✅ Debt finance: bonds, debentures, interest</div>
+    <div>✅ Equity finance: shares, dividends</div>
+    <div>✅ Accounting treatment: P&L and balance sheet</div>
+    <div>✅ Primary vs secondary capital markets</div>
+    <div>✅ IPO process and key terminology</div>
+    <div>✅ Gross proceeds, underwriting fees, net proceeds</div>
+    <div>✅ Capital structure and gearing</div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ==================== LECTURER DASHBOARD ==================== -->
+
+<div id="lecturerDashboard" class="lecturer-dashboard hidden">
+  <div class="dash-header">
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:22px">Lecturer Dashboard</div>
+      <div style="font-size:13px;opacity:0.75;margin-top:4px">Financial Management & Markets — Lecture 7 — Live View</div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <button class="nudge-btn" onclick="sendNudge()">📣 Send Nudge to All</button>
+      <button class="nudge-btn" onclick="refreshDashboard()" style="background:white">🔄 Refresh</button>
+    </div>
+  </div>
+
+  <div class="dash-stats">
+    <div class="dash-stat"><div class="dash-stat-num" id="dStatTotal">0</div><div class="dash-stat-label">Students Registered</div></div>
+    <div class="dash-stat"><div class="dash-stat-num" id="dStatActive">0</div><div class="dash-stat-label">Currently Active</div></div>
+    <div class="dash-stat"><div class="dash-stat-num" id="dStatComplete">0</div><div class="dash-stat-label">Completed</div></div>
+    <div class="dash-stat"><div class="dash-stat-num" id="dStatStalled">0</div><div class="dash-stat-label" style="color:var(--aru-red)">⚠ Stalled</div></div>
+  </div>
+
+  <div class="dash-table">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Student Name</th>
+          <th>Current Module</th>
+          <th>Score</th>
+          <th>Time Elapsed</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="dashTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- end main-content -->
+
+<script>
+// ============================================================
+// STORAGE KEY & STATE
+// ============================================================
+const STORAGE_KEY = 'aru_finance_leaderboard_v2';
+const NUDGE_KEY = 'aru_finance_nudge';
+
+let state = {
+  name: '',
+  startTime: null,
+  currentModule: 0,
+  totalScore: 0,
+  moduleScores: [0,0,0,0,0],
+  moduleMaxScores: [100,100,100,100,100],
+  timerInterval: null,
+  completed: false,
+  lastActivity: Date.now()
+};
+
+// ============================================================
+// DATA
+// ============================================================
+const m1Items = [
+  {id:'banks', text:'Banks', zone:'institutions'},
+  {id:'insurance', text:'Insurance Companies', zone:'institutions'},
+  {id:'investment_co', text:'Investment Companies', zone:'institutions'},
+  {id:'brokerage', text:'Brokerage Firm', zone:'institutions'},
+  {id:'stock_mkt', text:'Stock Market', zone:'markets'},
+  {id:'forex', text:'Forex Markets', zone:'markets'},
+  {id:'bonds_mkt', text:'Bonds Markets', zone:'markets'},
+  {id:'crypto', text:'Cryptocurrency Market', zone:'markets'},
+  {id:'cash', text:'Cash', zone:'instruments'},
+  {id:'shares', text:'Shares of Stock', zone:'instruments'},
+  {id:'options', text:'Options', zone:'instruments'},
+  {id:'futures', text:'Futures', zone:'instruments'},
+];
+
+const m1ItemAttempts = {};
+const m1ItemPoints = {};
+
+const m2Stage1Items = [
+  {id:'retained', text:'Retained Earnings', zone:'internal'},
+  {id:'working_cap', text:'Working Capital', zone:'internal'},
+  {id:'sale_assets', text:'Sale of Assets', zone:'internal'},
+  {id:'overdraft', text:'Bank Overdraft', zone:'external'},
+  {id:'trade_credit', text:'Trade Credit', zone:'external'},
+  {id:'debt_factor', text:'Debt Factoring', zone:'external'},
+  {id:'leasing', text:'Leasing', zone:'external'},
+  {id:'hire_purchase', text:'Hire Purchase', zone:'external'},
+  {id:'share_issue', text:'Share Issue', zone:'external'},
+  {id:'debenture_src', text:'Debenture', zone:'external'},
+  {id:'grants', text:'Grants', zone:'external'},
+  {id:'mortgage', text:'Long-Term Mortgage', zone:'external'},
+];
+
+const m2Stage2Items = [
+  {id:'overdraft', text:'Bank Overdraft', zone:'short'},
+  {id:'trade_credit', text:'Trade Credit', zone:'short'},
+  {id:'debt_factor', text:'Debt Factoring', zone:'short'},
+  {id:'leasing', text:'Leasing', zone:'medium'},
+  {id:'hire_purchase', text:'Hire Purchase', zone:'medium'},
+  {id:'share_issue', text:'Share Issue', zone:'long'},
+  {id:'debenture_src', text:'Debenture', zone:'long'},
+  {id:'grants', text:'Grants', zone:'long'},
+  {id:'mortgage', text:'Long-Term Mortgage', zone:'long'},
+];
+
+const m2s1Attempts = {};
+const m2s2Attempts = {};
+
+const m4Items = [
+  {id:'ipo_tx', text:'A company issues new shares for the first time on the stock exchange', zone:'primary'},
+  {id:'bond_issue', text:'Government issues new bonds to raise capital', zone:'primary'},
+  {id:'share_trade', text:'An investor buys existing shares of Tesla on the NYSE', zone:'secondary'},
+  {id:'bond_trade', text:'A fund sells government bonds it already holds', zone:'secondary'},
+  {id:'rights_issue', text:'A listed company raises new equity by offering shares to existing shareholders', zone:'primary'},
+  {id:'sec_trade2', text:'Two investors trade company shares between each other on the exchange', zone:'secondary'},
+];
+const m4Attempts = {};
+
+const m4Terms = [
+  {id:'common_stock', term:'Common Stock', def:'Units of ownership in a public company, allowing holders to vote and receive dividends'},
+  {id:'issue_price', term:'Issue Price', def:'The initial selling price of shares to investors before public trading starts'},
+  {id:'underwriter', term:'Underwriter', def:'The investment bank managing the IPO, setting the offer price and distributing shares'},
+  {id:'market_cap', term:'Market Capitalisation', def:'Total value of a company\'s outstanding shares, indicating its size and used to compare firms'},
+  {id:'price_band', term:'Price Band', def:'The range within which investors can bid for IPO shares'},
+  {id:'lot_size', term:'Lot Size', def:'The minimum number of shares you can bid for in an IPO'},
+];
+
+const m4MatchAttempts = {};
+
+const tfQuestions = [
+  {q:'Interest expense on debt is classified as an operating expense in the Profit & Loss account.', ans:false, expl:'Interest is a finance cost, not an operating expense. It arises from financing decisions, not from running the business day-to-day.'},
+  {q:'Equity finance requires mandatory annual repayments to shareholders.', ans:false, expl:'Equity has no mandatory repayment. Dividends are paid at the discretion of the company when profitable.'},
+  {q:'A debenture is typically unsecured, relying on the issuer\'s creditworthiness.', ans:true, expl:'Correct. Debentures are long-term debt instruments usually not backed by specific assets.'},
+  {q:'When a company issues new shares, this increases its liabilities on the balance sheet.', ans:false, expl:'Issuing shares increases equity (share capital & reserves), not liabilities. Debt creates liabilities.'},
+  {q:'A bond is generally considered lower risk to the investor than a debenture.', ans:true, expl:'Correct. Bonds are often secured on assets, giving investors lower risk than unsecured debentures.'},
+  {q:'Dividends paid by a company reduce its retained earnings on the balance sheet.', ans:true, expl:'Correct. Dividends are distributions of profit and reduce retained earnings (equity), not profit.'},
+  {q:'Retained earnings are a form of external finance because they come from profits.', ans:false, expl:'Retained earnings are internal finance — funds generated and kept within the business.'},
+  {q:'A highly geared company has a larger proportion of its finance from equity than loans.', ans:false, expl:'High gearing means MORE debt (loans) relative to equity. A highly geared company relies heavily on borrowed funds.'},
+];
+
+const plErrors = {
+  interest: {
+    correct_label: 'Interest Expense should be labelled as a Finance Cost, not an Operating Cost',
+    wrong_labels: ['Interest should not appear in P&L at all', 'Interest should be shown as equity'],
+    explanation: 'Interest is a finance cost, not an operating expense. It arises from borrowing decisions, not from running the business.'
+  },
+  dividend: {
+    correct_label: 'Dividend Paid should NOT appear in the P&L — it reduces retained earnings on the balance sheet',
+    wrong_labels: ['Dividend should be listed as an operating expense', 'Dividend is a liability'],
+    explanation: 'Dividends are not an expense in the P&L. They are distributions of profit and reduce retained earnings on the balance sheet.'
+  },
+  equity: {
+    correct_label: 'Share Capital Issued is NOT an expense — it increases equity on the balance sheet',
+    wrong_labels: ['Share capital should be in operating expenses', 'Share capital is a type of liability'],
+    explanation: 'Issuing shares creates equity (share capital), not an expense. It should appear on the balance sheet, not in the P&L.'
+  }
+};
+
+let errorsFoundCount = 0;
+let selectedPLRow = null;
+let plAttempts = {interest:0, dividend:0, equity:0};
+
+let m3TFScore = 0;
+let tfAnswered = [];
+let tfShuffled = [];
+
+let m4MatchSelected = null;
+let m4MatchCompleted = 0;
+
+let calcAttempts = {1:0, 2:0, 3:0, 4:0};
+const correctCalcs = {1:100000000, 2:5000000, 3:93500000};
+
+let m4ScoreTotal = 0;
+let m5ScoreTotal = 0;
+
+// ============================================================
+// LEADERBOARD (localStorage simulation via object)
+// ============================================================
+function getLeaderboard() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) { return []; }
+}
+
+function saveToLeaderboard() {
+  const lb = getLeaderboard();
+  const idx = lb.findIndex(s => s.name === state.name);
+  const entry = {
+    name: state.name,
+    score: state.totalScore,
+    module: state.currentModule,
+    time: state.startTime ? Math.floor((Date.now() - state.startTime)/1000) : 0,
+    completed: state.completed,
+    lastUpdate: Date.now()
+  };
+  if(idx >= 0) lb[idx] = entry;
+  else lb.push(entry);
+  lb.sort((a,b)=>b.score-a.score);
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(lb)); } catch(e){}
+}
+
+function renderLeaderboard(containerId) {
+  const lb = getLeaderboard();
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  if(lb.length === 0){ el.innerHTML='<div style="color:#888;font-size:14px;text-align:center;padding:16px">No entries yet. Be the first!</div>'; return; }
+  const medals = ['🥇','🥈','🥉'];
+  el.innerHTML = lb.slice(0,10).map((s,i)=>`
+    <div class="lb-row ${s.name===state.name?'current-user':''}">
+      <div class="lb-rank">${medals[i]||i+1}</div>
+      <div class="lb-name">${escHtml(s.name)}${s.name===state.name?' (You)':''}</div>
+      <div class="lb-module">Module ${s.module}</div>
+      <div class="lb-score">${s.score} pts</div>
+    </div>
+  `).join('');
+}
+
+function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ============================================================
+// TIMER
+// ============================================================
+function startTimer() {
+  state.startTime = Date.now();
+  state.timerInterval = setInterval(()=>{
+    const elapsed = Math.floor((Date.now()-state.startTime)/1000);
+    const remaining = Math.max(0, 3600 - elapsed);
+    const mins = Math.floor(remaining/60);
+    const secs = remaining % 60;
+    const disp = document.getElementById('timerDisplay');
+    if(disp){
+      disp.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+      disp.className = 'timer-display';
+      if(remaining < 600) disp.classList.add('warning');
+      if(remaining < 300) { disp.classList.remove('warning'); disp.classList.add('danger'); }
+      if(remaining === 0) { clearInterval(state.timerInterval); timeUp(); }
+    }
+    // Check for nudge
+    checkNudgeBanner();
+    // Check stall (5+ mins no activity)
+    if(Date.now() - state.lastActivity > 300000 && !state.completed){
+      // Auto-nudge self
+    }
+    saveToLeaderboard();
+  }, 1000);
+}
+
+function timeUp() {
+  alert('⏱ Time is up! Your progress has been saved. Your score: ' + state.totalScore + ' / 500');
+  completeModule(state.currentModule, true);
+}
+
+// ============================================================
+// NUDGE SYSTEM
+// ============================================================
+function checkNudgeBanner() {
+  try {
+    const nudge = localStorage.getItem(NUDGE_KEY);
+    if(nudge){
+      const data = JSON.parse(nudge);
+      if(data.time > (Date.now() - 10000)){
+        const banner = document.getElementById('nudgeBanner');
+        if(banner){ banner.classList.add('show'); setTimeout(()=>banner.classList.remove('show'),5000); }
+      }
+    }
+  } catch(e){}
+}
+
+function sendNudge() {
+  try {
+    localStorage.setItem(NUDGE_KEY, JSON.stringify({time: Date.now(), msg:'Keep going!'}));
+    alert('Nudge sent to all students!');
+  } catch(e){}
+}
+
+// ============================================================
+// SESSION START
+// ============================================================
+function startSession() {
+  const input = document.getElementById('nameInput');
+  const name = (input.value||'').trim();
+  if(!name || name.length < 2){
+    document.getElementById('nameError').style.display='block';
+    input.focus();
+    return;
+  }
+  document.getElementById('nameError').style.display='none';
+  state.name = name;
+  document.getElementById('studentBadge').textContent = name.split(' ')[0];
+  document.getElementById('appHeader').style.display='flex';
+  document.getElementById('progressContainer').style.display='block';
+  saveToLeaderboard();
+  startTimer();
+  showScreen('m1');
+  initModule1();
+  updateProgress(1);
+}
+
+// ============================================================
+// SCREEN MANAGEMENT
+// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function updateProgress(moduleNum) {
+  state.currentModule = moduleNum;
+  const pct = ((moduleNum-1)/5)*100;
+  document.getElementById('progressFill').style.width = pct+'%';
+  for(let i=0;i<5;i++){
+    const lbl = document.getElementById('plabel'+i);
+    if(i < moduleNum-1) { lbl.classList.add('done'); lbl.classList.remove('active'); }
+    else if(i === moduleNum-1) { lbl.classList.add('active'); lbl.classList.remove('done'); }
+    else { lbl.classList.remove('done','active'); }
+  }
+  saveToLeaderboard();
+}
+
+// ============================================================
+// MODULE COMPLETE
+// ============================================================
+// completeModule defined in second script block below
+
+function showFinalScreen() {
+  showScreen('final');
+  document.getElementById('certName').textContent = state.name;
+  document.getElementById('certScore').textContent = state.totalScore;
+  const breakdown = document.getElementById('finalBreakdown');
+  const moduleNames = ['Financial System','Sources of Finance','Debt vs Equity','IPO & Markets','IPO Calculations'];
+  breakdown.innerHTML = state.moduleScores.map((s,i)=>`
+    <div class="final-module-score">
+      <div class="fms-num">Module ${i+1}</div>
+      <div style="font-size:10px;color:#aaa;margin-bottom:6px">${moduleNames[i]}</div>
+      <div class="fms-score">${s}</div>
+      <div class="fms-max">/ 100</div>
+    </div>
+  `).join('');
+  renderLeaderboard('finalLBContent');
+  updateProgress(6);
+  document.getElementById('progressFill').style.width='100%';
+}
+
+function addScore(module, points) {
+  state.moduleScores[module-1] += points;
+  state.totalScore += points;
+  state.lastActivity = Date.now();
+  const scoreEl = document.getElementById('m'+module+'Score');
+  if(scoreEl) scoreEl.textContent = state.moduleScores[module-1] + ' / 100';
+  saveToLeaderboard();
+}
+
+// ============================================================
+// DRAG AND DROP ENGINE
+// ============================================================
+let draggedItemId = null;
+let draggedItemModule = null;
+
+function makeDragItem(item, poolId, module) {
+  const el = document.createElement('div');
+  el.className = 'drag-item';
+  el.textContent = item.text;
+  el.id = 'drag-'+module+'-'+item.id;
+  el.draggable = true;
+  el.dataset.id = item.id;
+  el.dataset.module = module;
+  el.addEventListener('dragstart', e => {
+    draggedItemId = item.id;
+    draggedItemModule = module;
+    el.classList.add('dragging');
+    e.dataTransfer.setData('text/plain', item.id);
+  });
+  el.addEventListener('dragend', () => el.classList.remove('dragging'));
+
+  // Touch support
+  let touchStartX, touchStartY;
+  el.addEventListener('touchstart', e=>{
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    draggedItemId = item.id;
+    draggedItemModule = module;
+  }, {passive:true});
+  el.addEventListener('touchend', e=>{
+    const touch = e.changedTouches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    const zone = target?.closest('.drop-zone');
+    if(zone) {
+      const zoneId = zone.dataset.zone || zone.querySelector('.drop-zone-label')?.textContent.toLowerCase().trim();
+      // Try to find zone via ondrop attribute
+      const onDrop = zone.getAttribute('ondrop');
+      if(onDrop){
+        const match = onDrop.match(/'([^']+)'\s*\)/);
+        if(match) simulateDrop(module, match[1]);
+      }
+    }
+  });
+
+  document.getElementById(poolId).appendChild(el);
+}
+
+function allowDrop(e){ e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+
+function dropItem(e, module, zone) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if(!draggedItemId) return;
+  simulateDrop(module, zone);
+}
+
+function simulateDrop(module, zone) {
+  const itemId = draggedItemId;
+  if(module === 'm1') handleM1Drop(itemId, zone);
+  else if(module === 'm2s1') handleM2S1Drop(itemId, zone);
+  else if(module === 'm2s2') handleM2S2Drop(itemId, zone);
+  else if(module === 'm4') handleM4Drop(itemId, zone);
+  draggedItemId = null;
+}
+
+// Generic drop handler factory
+function handleGenericDrop(itemId, zone, items, attemptsObj, pointsMap, module, poolId, correctSound) {
+  const item = items.find(i=>i.id===itemId);
+  if(!item) return;
+
+  const el = document.getElementById('drag-'+module+'-'+itemId);
+  if(!el || el.classList.contains('correct-item')) return;
+
+  if(!attemptsObj[itemId]) attemptsObj[itemId] = 0;
+  attemptsObj[itemId]++;
+
+  if(item.zone === zone) {
+    // Correct!
+    el.classList.add('correct-item');
+    el.draggable = false;
+    const points = attemptsObj[itemId]===1 ? 10 : attemptsObj[itemId]===2 ? 6 : 2;
+    if(pointsMap) pointsMap[itemId] = points;
+    addScore(parseInt(module.replace(/[^0-9]/g,'')||'1'), points);
+
+    const zoneContainer = document.getElementById('zone-'+module+'-'+zone);
+    if(zoneContainer) zoneContainer.appendChild(el);
+
+    // Check if all done
+    const allCorrect = items.every(i=>{
+      const e2 = document.getElementById('drag-'+module+'-'+i.id);
+      return e2 && e2.classList.contains('correct-item');
+    });
+    if(allCorrect && correctSound) correctSound();
+  } else {
+    // Wrong
+    el.classList.add('wrong-item');
+    setTimeout(()=>el.classList.remove('wrong-item'), 600);
+
+    if(attemptsObj[itemId] === 2){
+      // Show hint
+      const hint = document.getElementById(module+'Hint') || document.getElementById(module.replace('s1','').replace('s2','')+'Hint');
+      const hintText = document.getElementById(module+'HintText') || document.getElementById(module.replace('s1','').replace('s2','')+'HintText');
+      if(hint && hintText){
+        hintText.textContent = `Hint for "${item.text}": It belongs in the ${item.zone.replace('_',' ')} category.`;
+        hint.classList.add('show');
+      }
+    }
+    if(attemptsObj[itemId] >= 3){
+      // Auto-place with reveal
+      el.classList.add('correct-item');
+      el.style.opacity = '0.6';
+      el.draggable = false;
+      const zoneContainer = document.getElementById('zone-'+module+'-'+item.zone);
+      if(zoneContainer) zoneContainer.appendChild(el);
+      const reveal = document.getElementById(module+'Reveal') || document.getElementById(module.replace('s1','').replace('s2','')+'Reveal');
+      if(reveal){
+        reveal.innerHTML = `<strong>✅ Answer revealed:</strong> "${item.text}" belongs in <strong>${item.zone.replace(/_/g,' ')}</strong>.`;
+        reveal.classList.add('show');
+        setTimeout(()=>reveal.classList.remove('show'), 4000);
+      }
+      const allDone = items.every(i=>{
+        const e2 = document.getElementById('drag-'+module+'-'+i.id);
+        return e2 && e2.classList.contains('correct-item');
+      });
+      if(allDone && correctSound) correctSound();
+    }
+  }
+  state.lastActivity = Date.now();
+}
+
+// ============================================================
+// MODULE 1
+// ============================================================
+function initModule1() {
+  const pool = document.getElementById('m1Pool');
+  pool.innerHTML = '';
+  // Shuffle
+  const shuffled = [...m1Items].sort(()=>Math.random()-0.5);
+  shuffled.forEach(item => makeDragItem(item, 'm1Pool', 'm1'));
+
+  // Add drag-over listeners
+  document.querySelectorAll('#screen-m1 .drop-zone').forEach(z=>{
+    z.addEventListener('dragleave', ()=>z.classList.remove('drag-over'));
+  });
+}
+
+function handleM1Drop(itemId, zone) {
+  handleGenericDrop(itemId, zone, m1Items, m1ItemAttempts, m1ItemPoints, 'm1', 'm1Pool', ()=>{
+    document.getElementById('m1Status').textContent = '✅ Complete!';
+    document.getElementById('m1Status').style.color = 'var(--aru-green)';
+    const fb = document.getElementById('m1Feedback');
+    fb.className='feedback-msg feedback-correct show';
+    fb.innerHTML='<span>🎉</span> Excellent! You\'ve correctly categorised all elements of the financial system!';
+    document.getElementById('m1NextBtn').classList.remove('hidden');
+  });
+}
+
+// ============================================================
+// MODULE 2
+// ============================================================
+function initModule2() {
+  const pool1 = document.getElementById('m2Pool1');
+  pool1.innerHTML='';
+  [...m2Stage1Items].sort(()=>Math.random()-0.5).forEach(item=>makeDragItem(item,'m2Pool1','m2s1'));
+  document.querySelectorAll('#screen-m2 .drop-zone').forEach(z=>{
+    z.addEventListener('dragleave',()=>z.classList.remove('drag-over'));
+  });
+}
+
+function handleM2S1Drop(itemId, zone) {
+  handleGenericDrop(itemId, zone, m2Stage1Items, m2s1Attempts, null, 'm2s1', 'm2Pool1', ()=>{
+    // Stage 1 complete — unlock stage 2
+    document.getElementById('m2Stage').textContent='Stage 2 of 2';
+    const fb = document.getElementById('m2s1Feedback');
+    fb.className='feedback-msg feedback-correct show';
+    fb.innerHTML='<span>✅</span> Stage 1 complete! Now sort the external sources by duration below.';
+    setTimeout(()=>{
+      document.getElementById('m2Stage2').classList.remove('hidden');
+      const pool2 = document.getElementById('m2Pool2');
+      pool2.innerHTML='';
+      [...m2Stage2Items].sort(()=>Math.random()-0.5).forEach(item=>makeDragItem(item,'m2Pool2','m2s2'));
+    }, 800);
+  });
+}
+
+function handleM2S2Drop(itemId, zone) {
+  handleGenericDrop(itemId, zone, m2Stage2Items, m2s2Attempts, null, 'm2s2', 'm2Pool2', ()=>{
+    document.getElementById('m2Status').textContent='✅ Complete!';
+    document.getElementById('m2Status').style.color='var(--aru-green)';
+    const fb = document.getElementById('m2s2Feedback');
+    fb.className='feedback-msg feedback-correct show';
+    fb.innerHTML='<span>🎉</span> Both stages complete! You can classify finance by source AND duration.';
+    document.getElementById('m2NextBtn').classList.remove('hidden');
+  });
+}
+
+// ============================================================
+// MODULE 3 — SPOT THE ERROR
+// ============================================================
+function initModule3() {
+  errorsFoundCount = 0;
+  selectedPLRow = null;
+  document.getElementById('errorsFound').textContent = '0';
+  loadTFQuestions();
+}
+
+function selectPLRow(rowEl) {
+  if(rowEl.classList.contains('confirmed-error') || rowEl.classList.contains('confirmed-correct-fix')) return;
+  const rowId = rowEl.dataset.id;
+  if(!rowId || !plErrors[rowId]) return;
+
+  // Deselect others
+  document.querySelectorAll('.pl-row.selected-error').forEach(r=>r.classList.remove('selected-error'));
+  rowEl.classList.add('selected-error');
+  selectedPLRow = rowId;
+
+  // Show options
+  const opts = document.getElementById('errorOptions');
+  opts.classList.add('show');
+  const error = plErrors[rowId];
+  const allOptions = [error.correct_label, ...error.wrong_labels].sort(()=>Math.random()-0.5);
+  opts.innerHTML = `<div style="width:100%;font-size:13px;font-weight:700;color:var(--aru-navy);margin-bottom:8px">What is wrong with this row? Select the correct fix:</div>` +
+    allOptions.map(opt=>`<button class="error-option-btn" onclick="checkErrorFix('${rowId}','${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`).join('');
+
+  state.lastActivity = Date.now();
+}
+
+function checkErrorFix(rowId, chosen, btn) {
+  const error = plErrors[rowId];
+  if(!plAttempts[rowId]) plAttempts[rowId]=0;
+  plAttempts[rowId]++;
+
+  const rowEl = document.querySelector(`.pl-row[data-id="${rowId}"]`);
+  const fb = document.getElementById('m3aFeedback');
+  const opts = document.getElementById('errorOptions');
+
+  if(chosen === error.correct_label){
+    rowEl.classList.remove('selected-error');
+    rowEl.classList.add('confirmed-error');
+    rowEl.innerHTML += ' <span style="color:var(--aru-red);font-weight:700">❌ ERROR</span>';
+    errorsFoundCount++;
+    document.getElementById('errorsFound').textContent = errorsFoundCount;
+    opts.classList.remove('show');
+    selectedPLRow = null;
+
+    const pts = plAttempts[rowId]===1 ? 10 : 5;
+    addScore(3, pts);
+
+    fb.className='feedback-msg feedback-correct show';
+    fb.innerHTML=`<span>✅</span> Correct! ${error.explanation}`;
+
+    if(errorsFoundCount >= 3){
+      setTimeout(()=>{
+        fb.innerHTML='<span>🎉</span> All 3 errors found! Moving to Part B...';
+        document.getElementById('m3Part').textContent='Part B';
+        setTimeout(()=>{
+          document.getElementById('m3PartB').classList.remove('hidden');
+          renderTFQuestions();
+        }, 1200);
+      }, 800);
+    }
+  } else {
+    btn.style.borderColor = 'var(--aru-red)';
+    btn.style.color = 'var(--aru-red)';
+    fb.className='feedback-msg feedback-wrong show';
+    fb.innerHTML=`<span>❌</span> Not quite. Think carefully about where this item should appear.`;
+
+    if(plAttempts[rowId] >= 3){
+      // Reveal
+      rowEl.classList.remove('selected-error');
+      rowEl.classList.add('confirmed-error');
+      opts.classList.remove('show');
+      errorsFoundCount++;
+      document.getElementById('errorsFound').textContent = errorsFoundCount;
+      fb.className='feedback-msg feedback-correct show';
+      fb.innerHTML=`<span>💡 Revealed:</span> ${error.explanation}`;
+      if(errorsFoundCount >= 3){
+        setTimeout(()=>{
+          document.getElementById('m3Part').textContent='Part B';
+          document.getElementById('m3PartB').classList.remove('hidden');
+          renderTFQuestions();
+        }, 1200);
+      }
+    }
+  }
+  state.lastActivity = Date.now();
+}
+
+// ============================================================
+// MODULE 3 — TRUE/FALSE
+// ============================================================
+function loadTFQuestions() {
+  tfShuffled = [...tfQuestions].sort(()=>Math.random()-0.5);
+  tfAnswered = new Array(tfShuffled.length).fill(null);
+  m3TFScore = 0;
+  document.getElementById('tfCurrent').textContent = '0/8';
+  document.getElementById('m3RetryBtn').classList.add('hidden');
+  const fb = document.getElementById('m3bFeedback');
+  fb.className='feedback-msg';
+  renderTFQuestions();
+}
+
+function renderTFQuestions() {
+  const container = document.getElementById('tfQuestions');
+  container.innerHTML = tfShuffled.map((q,i)=>`
+    <div class="tf-question" id="tfq-${i}">
+      <div class="tf-text">${i+1}. ${q.q}</div>
+      <div class="tf-buttons">
+        <button class="tf-btn tf-true" onclick="answerTF(${i},true,this)">TRUE</button>
+        <button class="tf-btn tf-false" onclick="answerTF(${i},false,this)">FALSE</button>
+      </div>
+      <div class="hint-box" id="tfhint-${i}"><div class="hint-icon">💡</div><div>${q.expl}</div></div>
+    </div>
+  `).join('');
+}
+
+function answerTF(index, answer, btn) {
+  if(tfAnswered[index] !== null) return;
+  const q = tfShuffled[index];
+  const qEl = document.getElementById('tfq-'+index);
+  const buttons = qEl.querySelectorAll('.tf-btn');
+  buttons.forEach(b=>b.disabled=true);
+
+  if(answer === q.ans){
+    tfAnswered[index] = true;
+    btn.classList.add('selected-correct');
+    qEl.classList.add('answered-correct');
+    addScore(3, 5);
+  } else {
+    tfAnswered[index] = false;
+    btn.classList.add('selected-wrong');
+    qEl.classList.add('answered-wrong');
+    // Show correct answer button
+    buttons.forEach(b=>{
+      if((b.classList.contains('tf-true') && q.ans===true) || (b.classList.contains('tf-false') && q.ans===false)){
+        b.classList.add('selected-correct');
+      }
+    });
+    // Show hint
+    document.getElementById('tfhint-'+index).classList.add('show');
+  }
+
+  m3TFScore = tfAnswered.filter(a=>a===true).length;
+  const answered = tfAnswered.filter(a=>a!==null).length;
+  document.getElementById('tfCurrent').textContent = `${m3TFScore}/${answered}`;
+
+  if(answered === tfShuffled.length){
+    checkTFComplete();
+  }
+  state.lastActivity = Date.now();
+}
+
+function checkTFComplete() {
+  const fb = document.getElementById('m3bFeedback');
+  if(m3TFScore >= 6){
+    document.getElementById('m3Status').textContent='✅ Complete!';
+    document.getElementById('m3Status').style.color='var(--aru-green)';
+    fb.className='feedback-msg feedback-correct show';
+    fb.innerHTML=`<span>🎉</span> Well done! You scored ${m3TFScore}/8 — gate passed!`;
+    document.getElementById('m3NextBtn').classList.remove('hidden');
+  } else {
+    fb.className='feedback-msg feedback-wrong show';
+    fb.innerHTML=`<span>❌</span> You scored ${m3TFScore}/8 — you need at least 6/8 to proceed. Questions will shuffle.`;
+    document.getElementById('m3RetryBtn').classList.remove('hidden');
+  }
+}
+
+// ============================================================
+// MODULE 4
+// ============================================================
+function initModule4() {
+  // Primary vs Secondary
+  const pool = document.getElementById('m4Pool');
+  pool.innerHTML='';
+  [...m4Items].sort(()=>Math.random()-0.5).forEach(item=>makeDragItem(item,'m4Pool','m4'));
+  document.querySelectorAll('#screen-m4 .drop-zone').forEach(z=>{
+    z.addEventListener('dragleave',()=>z.classList.remove('drag-over'));
+  });
+  m4ScoreTotal = 0;
+
+  // Setup match
+  const terms = document.getElementById('matchTerms');
+  const defs = document.getElementById('matchDefs');
+  terms.innerHTML='';
+  defs.innerHTML='';
+  const shuffledDefs = [...m4Terms].sort(()=>Math.random()-0.5);
+  m4Terms.forEach(t=>{
+    const el = document.createElement('div');
+    el.className='match-term';
+    el.textContent=t.term;
+    el.dataset.id=t.id;
+    el.onclick=()=>selectMatchTerm(el);
+    terms.appendChild(el);
+    m4MatchAttempts[t.id]=0;
+  });
+  shuffledDefs.forEach(t=>{
+    const el = document.createElement('div');
+    el.className='match-def';
+    el.textContent=t.def;
+    el.dataset.id=t.id;
+    el.onclick=()=>selectMatchDef(el);
+    defs.appendChild(el);
+  });
+  m4MatchCompleted=0;
+}
+
+function handleM4Drop(itemId, zone) {
+  handleGenericDrop(itemId, zone, m4Items, m4Attempts, null, 'm4', 'm4Pool', ()=>{
+    const fb = document.getElementById('m4aFeedback');
+    fb.className='feedback-msg feedback-correct show';
+    fb.innerHTML='<span>✅</span> All items correctly classified! Moving to Part B — Key Terms Matching.';
+    document.getElementById('m4Part').textContent='Part B';
+    setTimeout(()=>document.getElementById('m4PartB').classList.remove('hidden'), 800);
+  });
+}
+
+let m4SelectedTerm = null;
+
+function selectMatchTerm(el) {
+  if(el.classList.contains('matched-correct')) return;
+  document.querySelectorAll('.match-term.selected').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  m4SelectedTerm = el;
+  const hintEl = document.getElementById('m4bHintText');
+  if(hintEl) hintEl.textContent='Now click the matching definition on the right.';
+  document.getElementById('m4bHint').classList.add('show');
+}
+
+function selectMatchDef(el) {
+  if(!m4SelectedTerm) return;
+  if(el.classList.contains('matched-correct')) return;
+
+  const termId = m4SelectedTerm.dataset.id;
+  const defId = el.dataset.id;
+
+  m4MatchAttempts[termId]++;
+
+  if(termId === defId){
+    m4SelectedTerm.classList.remove('selected');
+    m4SelectedTerm.classList.add('matched-correct');
+    el.classList.add('matched-correct');
+    m4SelectedTerm = null;
+    m4MatchCompleted++;
+    addScore(4, m4MatchAttempts[termId]===1?10:m4MatchAttempts[termId]===2?6:2);
+    document.getElementById('m4bHint').classList.remove('show');
+
+    const fb = document.getElementById('m4bFeedback');
+    fb.className='feedback-msg feedback-correct show';
+    fb.innerHTML=`<span>✅</span> Correct match! (${m4MatchCompleted}/${m4Terms.length} matched)`;
+
+    if(m4MatchCompleted === m4Terms.length){
+      setTimeout(()=>{
+        document.getElementById('m4Part').textContent='Part C';
+        document.getElementById('m4PartC').classList.remove('hidden');
+        fb.classList.remove('show');
+      }, 600);
+    }
+  } else {
+    m4SelectedTerm.classList.add('matched-wrong');
+    el.classList.add('matched-wrong');
+    setTimeout(()=>{
+      m4SelectedTerm.classList.remove('matched-wrong','selected');
+      el.classList.remove('matched-wrong','selected');
+    }, 600);
+    m4SelectedTerm = null;
+
+    const fb = document.getElementById('m4bFeedback');
+    fb.className='feedback-msg feedback-wrong show';
+    fb.innerHTML=`<span>❌</span> Not a match. Try again.`;
+
+    if(m4MatchAttempts[termId] >= 3){
+      // Auto-reveal
+      const correctDef = document.querySelector(`.match-def[data-id="${termId}"]`);
+      const termEl = document.querySelector(`.match-term[data-id="${termId}"]`);
+      if(correctDef && termEl){
+        termEl.classList.add('matched-correct');
+        correctDef.classList.add('matched-correct');
+        m4MatchCompleted++;
+        if(m4MatchCompleted===m4Terms.length){
+          setTimeout(()=>{
+            document.getElementById('m4Part').textContent='Part C';
+            document.getElementById('m4PartC').classList.remove('hidden');
+          },600);
+        }
+      }
+    }
+  }
+  state.lastActivity = Date.now();
+}
+
+let m4cAttempts = 0;
+function checkScenario(btn, result) {
+  m4cAttempts++;
+  const options = document.querySelectorAll('#m4cOptions .scenario-option');
+  const fb = document.getElementById('m4cFeedback');
+
+  if(result === 'correct'){
+    btn.classList.add('correct-ans');
+    options.forEach(o=>o.disabled=true);
+    const pts = m4cAttempts===1?15:8;
+    addScore(4, pts);
+    fb.className='feedback-msg feedback-correct show';
+    fb.innerHTML='<span>✅</span> Correct! An IPO takes place in the <strong>primary market</strong> because new shares are being issued directly by the company to investors for the first time. The secondary market only handles existing shares.';
+    document.getElementById('m4NextBtn').classList.remove('hidden');
+    document.getElementById('m4Status').textContent='✅ Complete!';
+    document.getElementById('m4Status').style.color='var(--aru-green)';
+  } else {
+    btn.classList.add('wrong-ans');
+    setTimeout(()=>btn.classList.remove('wrong-ans'), 800);
+    fb.className='feedback-msg feedback-wrong show';
+    fb.innerHTML=`<span>❌</span> Not quite. Think: is the company issuing NEW shares or trading EXISTING ones?`;
+    if(m4cAttempts >= 3){
+      options.forEach(o=>{
+        if(o.getAttribute('onclick').includes('correct')) o.classList.add('correct-ans');
+        o.disabled=true;
+      });
+      document.getElementById('m4NextBtn').classList.remove('hidden');
+    }
+  }
+  state.lastActivity = Date.now();
+}
+
+// ============================================================
+// MODULE 5 — CALCULATIONS
+// ============================================================
+function initModule5() {
+  // Steps already in HTML, just ensure step 1 is unlocked
+  document.getElementById('step1').classList.remove('locked');
+  document.getElementById('step1').classList.add('unlocked');
+}
+
+function checkCalc(step) {
+  const input = document.getElementById('step'+step+'Input');
+  const val = parseFloat(input.value);
+  const fb = document.getElementById('step'+step+'Feedback');
+  const hint = document.getElementById('step'+step+'Hint');
+
+  calcAttempts[step]++;
+
+  if(!val || isNaN(val)){
+    fb.className='feedback-msg feedback-wrong show';
+    fb.innerHTML='<span>⚠️</span> Please enter a number.';
+    return;
+  }
+
+  const correct = correctCalcs[step];
+  const tolerance = correct * 0.01; // 1% tolerance
+
+  if(Math.abs(val - correct) <= tolerance){
+    input.classList.add('correct');
+    const pts = calcAttempts[step]===1?25:calcAttempts[step]===2?15:8;
+    addScore(5, pts);
+    fb.className='feedback-msg feedback-correct show';
+    const labels = ['','Gross Proceeds = $100,000,000','Underwriting Fee = $5,000,000','Net Proceeds = $93,500,000'];
+    fb.innerHTML=`<span>✅</span> Correct! ${labels[step]}`;
+    document.getElementById('step'+step).classList.remove('unlocked');
+    document.getElementById('step'+step).classList.add('completed');
+    document.getElementById('m5Steps').textContent = step + ' / 4';
+
+    if(step < 3){
+      const next = document.getElementById('step'+(step+1));
+      next.classList.remove('locked');
+      next.classList.add('unlocked');
+    } else {
+      // Unlock step 4 (interpretation)
+      const s4 = document.getElementById('step4');
+      s4.classList.remove('locked');
+      s4.classList.add('unlocked');
+    }
+  } else {
+    input.classList.add('incorrect');
+    setTimeout(()=>input.classList.remove('incorrect'),800);
+    fb.className='feedback-msg feedback-wrong show';
+
+    if(calcAttempts[step]===2){
+      hint.classList.add('show');
+      fb.innerHTML=`<span>❌</span> Incorrect. A hint has appeared above. Try again.`;
+    } else if(calcAttempts[step]>=3){
+      // Reveal
+      input.value = correct;
+      input.classList.add('correct');
+      hint.classList.remove('show');
+      const revealMsg = ['','Revealed: 5,000,000 × $20 = $100,000,000','Revealed: $100,000,000 × 5% = $5,000,000','Revealed: $100,000,000 − $5,000,000 − $1,500,000 = $93,500,000'];
+      fb.className='feedback-msg feedback-correct show';
+      fb.innerHTML=`<span>💡</span> ${revealMsg[step]}`;
+      document.getElementById('step'+step).classList.remove('unlocked');
+      document.getElementById('step'+step).classList.add('completed');
+      document.getElementById('m5Steps').textContent = step + ' / 4';
+      if(step<3){ const next=document.getElementById('step'+(step+1)); next.classList.remove('locked'); next.classList.add('unlocked'); }
+      else { document.getElementById('step4').classList.remove('locked'); document.getElementById('step4').classList.add('unlocked'); }
+    } else {
+      fb.innerHTML=`<span>❌</span> Not correct. Double-check your calculation and try again.`;
+    }
+  }
+  state.lastActivity = Date.now();
+}
+
+let step4Attempts = 0;
+function checkStep4(btn, result) {
+  step4Attempts++;
+  const options = document.querySelectorAll('#step4Options .scenario-option');
+  const fb = document.getElementById('step4Feedback');
+
+  if(result === 'correct'){
+    btn.classList.add('correct-ans');
+    options.forEach(o=>o.disabled=true);
+    addScore(5, step4Attempts===1?10:5);
+    fb.className='feedback-msg feedback-correct show';
+    fb.innerHTML='<span>✅</span> Correct! The net proceeds is the actual cash Green Energy Corp receives after paying all IPO costs — this is the money available for business growth.';
+    document.getElementById('step4').classList.remove('unlocked');
+    document.getElementById('step4').classList.add('completed');
+    document.getElementById('m5Steps').textContent='4 / 4';
+    document.getElementById('m5Status').textContent='✅ Complete!';
+    document.getElementById('m5Status').style.color='var(--aru-green)';
+    document.getElementById('m5NextBtn').classList.remove('hidden');
+  } else {
+    btn.classList.add('wrong-ans');
+    setTimeout(()=>btn.classList.remove('wrong-ans'),600);
+    fb.className='feedback-msg feedback-wrong show';
+    fb.innerHTML='<span>❌</span> Think about what happens to the money after all costs are paid.';
+    if(step4Attempts>=3){
+      options.forEach(o=>{
+        if(o.getAttribute('onclick').includes('correct')) o.classList.add('correct-ans');
+        o.disabled=true;
+      });
+      document.getElementById('m5Status').textContent='✅ Complete!';
+      document.getElementById('m5Status').style.color='var(--aru-green)';
+      document.getElementById('m5NextBtn').classList.remove('hidden');
+    }
+  }
+  state.lastActivity = Date.now();
+}
+
+// ============================================================
+// LECTURER DASHBOARD
+// ============================================================
+function initLecturerDashboard() {
+  document.getElementById('appHeader').style.display='none';
+  document.getElementById('progressContainer').style.display='none';
+  document.getElementById('mainContent').innerHTML='';
+  document.getElementById('lecturerDashboard').classList.remove('hidden');
+  document.getElementById('lecturerDashboard').style.display='block';
+  refreshDashboard();
+  setInterval(refreshDashboard, 15000);
+}
+
+function refreshDashboard() {
+  const lb = getLeaderboard();
+  const now = Date.now();
+  const fiveMins = 300000;
+
+  let total=lb.length, active=0, complete=0, stalled=0;
+  lb.forEach(s=>{
+    if(s.completed) complete++;
+    else if(now-s.lastUpdate < fiveMins) active++;
+    else stalled++;
+  });
+
+  document.getElementById('dStatTotal').textContent=total;
+  document.getElementById('dStatActive').textContent=active;
+  document.getElementById('dStatComplete').textContent=complete;
+  document.getElementById('dStatStalled').textContent=stalled;
+
+  const tbody = document.getElementById('dashTableBody');
+  if(lb.length===0){
+    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#888;padding:32px">No students have registered yet. Share the link!</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = lb.map((s,i)=>{
+    const isStalled = !s.completed && (now-s.lastUpdate > fiveMins);
+    const mins = Math.floor(s.time/60);
+    const secs = s.time%60;
+    return `<tr class="${isStalled?'stalled':''}">
+      <td>${i+1}</td>
+      <td><strong>${escHtml(s.name)}</strong></td>
+      <td><span class="module-badge">Module ${s.module}</span></td>
+      <td><strong>${s.score}</strong> pts</td>
+      <td>${mins}m ${secs}s</td>
+      <td>${s.completed?'<span style="color:var(--aru-green);font-weight:700">✅ Complete</span>':isStalled?'<span class="stall-flag">⚠ Stalled</span>':'<span style="color:var(--aru-blue-accent);font-weight:600">🔵 Active</span>'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('DOMContentLoaded', ()=>{
+  // Check if lecturer mode
+  if(window.location.search.includes('lecturer')){
+    initLecturerDashboard();
+    return;
+  }
+
+  // Show leaderboard on landing if entries exist
+  const lb = getLeaderboard();
+  if(lb.length > 0){
+    document.getElementById('landingLeaderboard').style.display='block';
+    renderLeaderboard('landingLBContent');
+  }
+
+  // Enter on name input
+  document.getElementById('nameInput').addEventListener('keydown', e=>{
+    if(e.key==='Enter') startSession();
+  });
+
+  // Drag-over cleanup
+  document.addEventListener('dragover', e=>e.preventDefault());
+});
+
+// Fix the syntax error in completeModule
+</script>
+
+<script>
+// Fix completeModule (re-declare cleanly)
+function completeModule(num, forced) {
+  if(num < 5){
+    const nextNum = num + 1;
+    showScreen('m'+nextNum);
+    updateProgress(nextNum);
+    if(nextNum===2) initModule2();
+    else if(nextNum===3) initModule3();
+    else if(nextNum===4) initModule4();
+    else if(nextNum===5) initModule5();
+  } else {
+    state.completed = true;
+    clearInterval(state.timerInterval);
+    saveToLeaderboard();
+    showFinalScreen();
+  }
+}
+</script>
+
+</body>
+</html>
